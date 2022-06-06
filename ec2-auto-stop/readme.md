@@ -31,7 +31,7 @@ The last one is easy to understand and to automate as well. Therefore I would li
 The calling chain can be reflected as below.
 
 1. Start instance -> Instance Status Change -> EventBridge Rule -> Lambda -> Create CloudWatch Alarm
-2. CPU usage low alarm -> Stop instance -> Instance Status Change -> EventBridge Rule -> Lambda -> Delete CloudWatch Alarm
+2. CPU usage low alarm -> Stop instance -> Instance Status Change -> EventBridge Rule -> Lambda -> Delete CloudWatch Alarm (send email as notification as well)
 
 ### Extended Scenarios
 

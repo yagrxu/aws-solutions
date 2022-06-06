@@ -13,3 +13,7 @@ variable "ec2_tag_key" {
 variable "ec2_tag_value" {
   
 }
+
+variable "your_email_address" {
+
+}

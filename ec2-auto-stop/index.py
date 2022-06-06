@@ -16,7 +16,7 @@ def lambda_handler(event, context):
     client = create_cw_client(region)
     if state == 'running':
         # create the alarm
-        create_cw_alarm(client, instance_id)
+        create_cw_alarm(client, instance_id, region)
     if state == 'stopped':
         # delete alarm
         delete_cw_alarm(client, instance_id)
@@ -51,14 +51,14 @@ def is_instance_under_control(client, instance_id):
             return True
     return False
 
-def create_cw_alarm(client, instance_id):
+def create_cw_alarm(client, instance_id, region):
     response = client.put_metric_alarm(
         AlarmName='cpu-usage-monitor-' + instance_id,
         AlarmDescription='',
         ActionsEnabled=True,
         AlarmActions=[
-            'arn:aws:sns:ap-southeast-1:613477150601:Instance_Low_Usage',
-            'arn:aws:automate:ap-southeast-1:ec2:stop'
+            os.getenv('SNS_ARN'),
+            'arn:aws:automate:' + region + ':ec2:stop'
         ],
         MetricName='CPUUtilization',
         Dimensions=[
@@ -75,7 +75,6 @@ def create_cw_alarm(client, instance_id):
         Threshold=20.0,
         ComparisonOperator='LessThanThreshold',
         TreatMissingData='notBreaching'
-
     )
 
 def delete_cw_alarm(client, instance_id):

@@ -95,6 +95,7 @@ resource "aws_lambda_function" "ec2_state_handler" {
       GLOBAL_AWS_SECRET_ACCESS_KEY = var.secret_access_key,
       EC2_TAG_KEY = var.ec2_tag_key,
       EC2_TAG_VALUE = var.ec2_tag_value
+      SNS_ARN = aws_sns_topic.sns_topic.arn
     }
   }
 }
@@ -110,4 +111,14 @@ resource "aws_lambda_permission" "allow_cloudwatch_to_call" {
   function_name = aws_lambda_function.ec2_state_handler.function_name
   principal = "events.amazonaws.com"
   source_arn = aws_cloudwatch_event_rule.ec2_state.arn
+}
+
+resource "aws_sns_topic" "sns_topic" {
+  name = "ec2-state-change"
+}
+
+resource "aws_sns_topic_subscription" "email_subscription" {
+  topic_arn = aws_sns_topic.sns_topic.arn
+  protocol  = "email"
+  endpoint  = var.your_email_address
 }
