@@ -1,0 +1,17 @@
+{
+    "Comment": "optional comment about the changes in this change batch request",
+    "Changes": [
+    {
+        "Action": "UPSERT",
+        "ResourceRecordSet": {
+          "Name": "demo.yagr.org",
+          "Type": "A",
+          "TTL": 60,
+          "ResourceRecords": [
+            {
+              "Value": "1.2.3.4"
+            }
+          ]
+        }
+    }]
+}
