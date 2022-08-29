@@ -1,0 +1,17 @@
+apiVersion: karpenter.sh/v1alpha5
+kind: Provisioner
+metadata:
+  name: default
+spec:
+  requirements:
+    - key: "node.kubernetes.io/instance-type" #If not included, all instance types are considered
+      operator: In
+      values: ["t3.large", "m5.large"]
+  provider:
+    instanceProfile: eks-72c0fc13-cb0f-cb1c-f022-f631ec44f12f
+    subnetSelector: 
+      karpenter.sh/discovery: 'event_0714'
+    securityGroupSelector:
+      karpenter.sh/discovery: 'event_0714'
+  ttlSecondsAfterEmpty: 30                    # optional, but never scales down if not set
+  ttlSecondsUntilExpired: 2592000             # optional, but never expires if not set

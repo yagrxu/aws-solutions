@@ -1,0 +1,40 @@
+version: 0.2
+
+env:
+  parameter-store:
+    AWS_ACCESS_KEY_ID: "/CodeBuild/default_ak_id"
+    AWS_SECRET_ACCESS_KEY: "/CodeBuild/default_ak_secret"
+    AWS_DEFAULT_REGION: "/CodeBuild/default_region"
+  exported-variables:
+    - CLUSTER_NAME
+
+phases:
+  install:
+    commands:
+      - sudo yum install -y yum-utils
+      - sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+      - yum --showduplicate list terraform
+      - yum install terraform-1.1.7 -y
+      # - kubectl config get-contexts
+      
+    # finally:
+    #   - cannot install terraform
+  # pre_build:
+  #   commands:
+  #     - echo Entered the pre_build phase...
+  #     - docker login -u User -p $LOGIN_PASSWORD
+  #   finally:
+  #     - echo This always runs even if the login command fails 
+  build:
+    commands:
+      - cd infrastructure
+      - terraform init
+      - terraform plan
+      - terraform apply --auto-approve
+      - export CLUSTER_NAME=`terraform output -raw cluster_name`
+      - export NODE_PROFILE_ARN=`terraform output -raw node_profile_arn`
+    finally:
+      # - terraform destroy --auto-approve
+  post_build:
+    commands:
+      - echo Build completed on `date`

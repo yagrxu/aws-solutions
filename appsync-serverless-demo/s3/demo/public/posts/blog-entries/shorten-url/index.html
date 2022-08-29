@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+      <title>shorten-url :: Yagr Xu&#39;s personal page</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Serverless &amp;ldquo;shorten-url&amp;rdquo; solution integrated with CI/CD
+
+Below is a typical AWS setup for serverless solution.It can be mapped also in Alibaba Cloud using similar technology.
+
+[AWS]
+
+User -- Static Website (S3) -- API GW -- Lambda -- AppSync -- DynamoDB 
+
+[Alibaba Cloud]
+
+User -- Static Website (OSS) -- API GW -- Function Compute -- TableStore 
+
+Below is a demo for the solution:"/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="http://blog.yagrxu.me/posts/blog-entries/shorten-url/" />
+
+
+
+
+
+<link rel="stylesheet" href="http://blog.yagrxu.me/assets/style.css">
+
+
+<link rel="stylesheet" href="http://blog.yagrxu.me/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://blog.yagrxu.me/img/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="http://blog.yagrxu.me/img/favicon.png">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="shorten-url"/>
+<meta name="twitter:description" content="Serverless &ldquo;shorten-url&rdquo; solution integrated with CI/CD
+
+Below is a typical AWS setup for serverless solution.It can be mapped also in Alibaba Cloud using similar technology.
+
+[AWS]
+
+User -- Static Website (S3) -- API GW -- Lambda -- AppSync -- DynamoDB 
+
+[Alibaba Cloud]
+
+User -- Static Website (OSS) -- API GW -- Function Compute -- TableStore 
+
+Below is a demo for the solution:"/>
+
+
+
+<meta property="og:title" content="shorten-url" />
+<meta property="og:description" content="Serverless &ldquo;shorten-url&rdquo; solution integrated with CI/CD
+
+Below is a typical AWS setup for serverless solution.It can be mapped also in Alibaba Cloud using similar technology.
+
+[AWS]
+
+User -- Static Website (S3) -- API GW -- Lambda -- AppSync -- DynamoDB 
+
+[Alibaba Cloud]
+
+User -- Static Website (OSS) -- API GW -- Function Compute -- TableStore 
+
+Below is a demo for the solution:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://blog.yagrxu.me/posts/blog-entries/shorten-url/" />
+<meta property="article:published_time" content="2020-07-28T17:38:16+02:00" />
+<meta property="article:modified_time" content="2020-07-28T17:38:16+02:00" />
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="http://blog.yagrxu.me/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">hello friend</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <span class="header__right">
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title"><a href="http://blog.yagrxu.me/posts/blog-entries/shorten-url/">shorten-url</a></h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2020-07-28
+        </span>
+
+        
+          
+        
+      
+
+      
+      
+    </div>
+
+    
+
+    
+      <figure class="post-cover">
+        
+          <img src="http://blog.yagrxu.me/posts/blog-entries/shorten-url/cover.jpg" />
+        
+
+        
+      </figure>
+    
+
+    <div class="post-content">
+      
+      <p><strong><font size="5">Serverless &ldquo;shorten-url&rdquo; solution integrated with CI/CD</font></strong></p>
+<p></p>
+<p>Below is a typical AWS setup for serverless solution.It can be mapped also in Alibaba Cloud using similar technology.</p>
+<p></p>
+[AWS]<p></p><p></p>
+User --> Static Website (S3) --> API GW --> Lambda --> AppSync --> DynamoDB
+<p></p>
+<p></p>
+[Alibaba Cloud]<p></p><p></p>
+User --> Static Website (OSS) --> API GW --> Function Compute --> TableStore
+<p></p><p></p>
+<p><strong><font size="5">Below is a demo for the solution: </font></strong></p>
+<script>
+    function post(){
+        url = document.getElementById("originUrl").value;
+        if (url.trim() == ""){
+            alert("url cannot be empty!");
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://rpq0q4l2qf.execute-api.eu-central-1.amazonaws.com/demo/", true);
+
+        //Send the proper header information along with the request
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                response = JSON.parse(this.responseText);
+                console.log(response);
+                updateLink(response.url, "inline")
+            }
+            else if (this.readyState === XMLHttpRequest.DONE && this.status != 200){
+                alert(this.responseText);
+                response = JSON.parse(this.responseText);
+                updateLink(response.url, "none")
+            }
+        }
+        body = {
+            "action":"add",
+            "url": url
+        }
+        console.log(JSON.stringify(body))
+        xhr.send(JSON.stringify(body));
+    }
+    function updateLink(url, display){
+        shortUrl = document.getElementById("shortUrl");
+        shortUrl.href = url;
+        shortUrl.style.display = display;
+    }
+</script>
+<ol>
+<li>
+<p>provide a valid long url:<br />
+<input type="text" width="500" id="originUrl"></input></p>
+</li>
+<li>
+<p>Click the buttone to save it:
+<button name="button" onclick="post()">Save it</button></p>
+</li>
+<li>
+<p>After the short URL is properly stored, you will be able to click the short URL below:<br>
+<a href="" id="shortUrl" style="display:none"> I am the short URL </a></p>
+</li>
+</ol>
+<p><strong><font size="5">IaC and CI/CD concept: </font></strong></p>
+<ol>
+<li>Tools for the demo</li>
+</ol>
+<ul>
+<li>I store the code in my <a href="github.com/yagrxu/serverless-demo">github</a></li>
+</ul>
+
+    </div>
+    
+
+
+    
+      
+    
+
+    </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="http://blog.yagrxu.me/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">hello friend</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+      <div class="copyright">
+        <span>© 2020 Powered by <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="http://blog.yagrxu.me/assets/main.js"></script>
+<script src="http://blog.yagrxu.me/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
+  </body>
+</html>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Yagr Xu&#39;s personal page</title>
+    
+    
+    
+    <link>http://blog.yagrxu.me/</link>
+    <description>Recent content on Yagr Xu&#39;s personal page</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Jul 2020 17:38:16 +0200</lastBuildDate>
+    
+	<atom:link href="http://blog.yagrxu.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>intro</title>
+      <link>http://blog.yagrxu.me/posts/blog-entries/intro/</link>
+      <pubDate>Tue, 28 Jul 2020 17:38:16 +0200</pubDate>
+      
+      <guid>http://blog.yagrxu.me/posts/blog-entries/intro/</guid>
+      <description>
+        
+          &lt;img src=&#34;http://blog.yagrxu.me/posts/blog-entries/intro/cover.jpg&#34;/&gt;
+          
+        
+        
+        
+          Life is a journey and the most important part is not the destination, but the one you love and the things you enjoy.
+I spend considerable time on trying new things. I enjoy the experience with new technologies and fantastic ideas.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>shorten-url</title>
+      <link>http://blog.yagrxu.me/posts/blog-entries/shorten-url/</link>
+      <pubDate>Tue, 28 Jul 2020 17:38:16 +0200</pubDate>
+      
+      <guid>http://blog.yagrxu.me/posts/blog-entries/shorten-url/</guid>
+      <description>
+        
+          &lt;img src=&#34;http://blog.yagrxu.me/posts/blog-entries/shorten-url/cover.jpg&#34;/&gt;
+          
+        
+        
+        
+          Serverless &amp;ldquo;shorten-url&amp;rdquo; solution integrated with CI/CD
+
+Below is a typical AWS setup for serverless solution.It can be mapped also in Alibaba Cloud using similar technology.
+
+[AWS]
+
+User -- Static Website (S3) -- API GW -- Lambda -- AppSync -- DynamoDB 
+
+[Alibaba Cloud]
+
+User -- Static Website (OSS) -- API GW -- Function Compute -- TableStore 
+
+Below is a demo for the solution:
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>
