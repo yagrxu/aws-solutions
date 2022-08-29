@@ -6,7 +6,7 @@ Key words: #IaC #Infrastructure as Code
 
 1. Demonstrate how a serverless solution with automated CI/CD on AWS look like
 
-2. Testing cross service functionalities to bridge the gaap on customer side
+2. Testing cross service functionalities to bridge the gap on customer side
 
 ## How to Run
 
