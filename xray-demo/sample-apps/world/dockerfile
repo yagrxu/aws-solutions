@@ -1,0 +1,8 @@
+FROM --platform=linux/amd64 openjdk:8-jre-slim
+
+COPY ./world.jar /usr/local/lib/demo.jar
+ADD ./aws-opentelemetry-agent.jar /usr/local/lib/aws-opentelemetry-agent.jar
+
+ENV JAVA_TOOL_OPTIONS "-javaagent:/usr/local/lib/aws-opentelemetry-agent.jar"
+EXPOSE 8080
+CMD ["java", "-jar","/usr/local/lib/demo.jar"]

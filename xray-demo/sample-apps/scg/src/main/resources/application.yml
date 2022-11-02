@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: "scg"
+  cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
+
+zuul:
+  routes:
+    world:
+      path: /hello
+      url: http://world

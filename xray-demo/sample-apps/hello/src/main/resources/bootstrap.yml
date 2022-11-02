@@ -1,0 +1,11 @@
+# default for all
+spring:
+  cloud:
+    kubernetes:
+      config:
+        name: hello
+        sources:
+          - name: hello
+        namespace: default
+      reload:
+        enabled: true

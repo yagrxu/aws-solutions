@@ -1,3 +1,7 @@
+**/*.jar
+**/.vscode/
+**/target/
+**/.mvn/
 **/.terraform/
 **/terraform.tfstate
 **/.terraform.lock.hcl

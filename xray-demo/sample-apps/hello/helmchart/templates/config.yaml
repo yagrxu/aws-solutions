@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.namespace }}
+data:
+  application.properties: |
+    test=helloworld
