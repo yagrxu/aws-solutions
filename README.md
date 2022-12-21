@@ -7,4 +7,4 @@
 3. [EKS Demo on HPA/VPA/Autoscaling](https://github.com/yagrxu/aws-solutions/tree/main/eks-devops-demo)
 4. [AppSync Demo on How to Create Serverless WebSite with APIGW, Lambda and DynamoDB](https://github.com/yagrxu/aws-solutions/tree/main/appsync-serverless-demo)
 5. [X-Ray Java Demo](https://github.com/yagrxu/aws-solutions/tree/main/xray-demo)
-6. [ECS Java Demo for ADOT](hhttps://github.com/yagrxu/aws-solutions/tree/main/adot-ecs-java-demo)
+6. [ECS Java Demo for ADOT](https://github.com/yagrxu/aws-solutions/tree/main/adot-ecs-java-demo)
