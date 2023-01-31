@@ -1,0 +1,16 @@
+FROM --platform=linux/amd64 python:3.9
+
+WORKDIR /app
+COPY ./src/requirements.txt /app
+
+RUN /usr/local/bin/python -m pip install --upgrade pip
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip3 install -r requirements.txt
+
+COPY ./src /app
+
+RUN opentelemetry-bootstrap --action=install
+
+CMD ["opentelemetry-instrument", "flask", "--app", "world", "run", "--host=0.0.0.0", "--port=5000"]
+
+EXPOSE 5000

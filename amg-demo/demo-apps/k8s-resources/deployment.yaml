@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello
+spec:
+  selector:
+    matchLabels:
+      app: hello
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+      - name: hello
+        image: 613477150601.dkr.ecr.ap-southeast-1.amazonaws.com/grafana-demo-hello:v0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+        - name: OTEL_PROPAGATORS
+          value: "xray"
+        - name: OTEL_PYTHON_ID_GENERATOR
+          value: "xray"
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: "http://adot-collector-collector.observability:4317"
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: "service.name=grafana-demo-hello,cloud.platform=aws_eks"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: world
+spec:
+  selector:
+    matchLabels:
+      app: world
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: world
+    spec:
+      containers:
+      - name: world
+        image: 613477150601.dkr.ecr.ap-southeast-1.amazonaws.com/grafana-demo-world:v0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+        - name: OTEL_PROPAGATORS
+          value: "xray"
+        - name: OTEL_PYTHON_ID_GENERATOR
+          value: "xray"
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: "http://adot-collector-collector.observability:4317"
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: "service.name=grafana-demo-world,cloud.platform=aws_eks"
