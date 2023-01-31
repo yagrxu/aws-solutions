@@ -1,0 +1,38 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: adot-collector
+  namespace: observability
+spec:
+  serviceAccount: adot-collector
+  mode: deployment
+  config: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318       
+    processors:
+      batch/metrics:
+        timeout: 60s         
+
+    ## for adot addon 0.58.0 and above     
+    extensions:
+      sigv4auth:
+        region: ap-southeast-1
+        service: "aps"
+
+    exporters:
+      awsxray:
+        region: ap-southeast-1
+
+    service:
+      extensions: [sigv4auth]
+      pipelines:
+          traces:
+            receivers: [otlp]
+            processors: []
+            exporters: [awsxray]
+          

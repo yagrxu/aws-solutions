@@ -1,0 +1,9 @@
+FROM --platform=linux/amd64 openjdk:8-jre-slim
+
+# RUN  mkdir /usr/local/lib/
+COPY ./hello.jar /usr/local/lib/demo.jar
+ADD ./aws-opentelemetry-agent.jar /usr/local/lib/aws-opentelemetry-agent.jar
+# COPY ./disco-plugins /usr/local/lib/disco-plugins
+ENV JAVA_TOOL_OPTIONS "-javaagent:/usr/local/lib/aws-opentelemetry-agent.jar"
+EXPOSE 8080
+CMD ["java", "-jar","/usr/local/lib/demo.jar"]
