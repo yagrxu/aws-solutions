@@ -16,11 +16,40 @@ This is a demo to show how to work with Grafana/Prometheus/Loki/X-Ray in AWS.
 
    Terraform used aws credential can be configured with aws cli profiles or enviroment values. Make sure the configured user/role has proper authorization.
 
+## Demo Structure
+
+```shell
+├── demo-apps                    # the apps that generate logs and traces for demo purpose
+│   ├── build.sh                 # build dockerfiles for both apps under `hello` and `world` directory
+│   ├── hello                    # service hello in python Flask
+│   ├── k8s-resources            # deployment and service definition for `hello` and `world`
+│   └── world                    # service world in python Flask
+├── demo.pptx                    # architecture of the demo
+├── readme.md
+├── screenshots
+│   ├── kubectx.png
+│   └── terraform run ok.png
+└── tf                           # terraform coding
+    ├── alb-controller.tf
+    ├── aws.tf
+    ├── collector                # ADOT collector
+    ├── data_source.tf
+    ├── karpenter.tf
+    ├── observability            # module for creating observability relevent components
+    ├── outputs.tf
+    ├── provider.tf
+    ├── provisioner              # karpenter provisioner
+    ├── variables.tf
+    └── versions.tf
+```
+
+
+
 ## Deployment
 
 ### Infrastructure Deployment by Terraform
 
-We will deploy the infrastructure with some key EKS components with terraform IaC.
+We will deploy the infrastructure with terraform IaC.
 
 
 
@@ -96,7 +125,7 @@ terraform apply --auto-approve
 
 If everything works fine with your terraform code, you should see a output from console similar as screenshot below.
 
-
+![image-20230207081220442](/Users/yagrxu/me/code/aws-solutions/amg-demo/screenshots/terraform run ok.png)
 
 #### Update Local Environment
 
@@ -201,7 +230,33 @@ kubectl apply -f ./demo-apps/k8s-resources/
 
 ## Verify Result
 
+- Loki
 
+  - Get Loki read URL for datasource
+
+    ```
+    $ kubectl get ingress
+    NAME                CLASS   HOSTS   ADDRESS                                                                               PORTS   AGE
+    loki-read-ingress   alb     *       internal-k8s-default-lokiread-61d90f7cd4-********.ap-southeast-1.elb.amazonaws.com   80      4d8h
+    ```
+
+  - Configure Datasource in Grafana
+
+    ![image-20230207083541309](./screenshots/loki-datasource.png)
+
+  - Explore the logs![image-20230207084204975](./screenshots/loki-logs.png)
+
+  - Prometheus
+
+    create data source in Grafana and Import 3119 Dashboard for data source prometheus
+
+    ![image-20230207084846289](/Users/yagrxu/me/code/aws-solutions/amg-demo/screenshots/prometheus-dashboard.png)
+
+- X-Ray
+
+  - Create data source and explore
+
+    ![image-20230207085111100](/Users/yagrxu/me/code/aws-solutions/amg-demo/screenshots/x-ray-explore.png)
 
 ### End
 

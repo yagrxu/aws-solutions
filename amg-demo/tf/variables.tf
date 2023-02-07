@@ -12,5 +12,5 @@ variable "username" {
 }
 
 variable "grafana_username" {
-
+  default = "yagrxu@amazon.com"
 }
