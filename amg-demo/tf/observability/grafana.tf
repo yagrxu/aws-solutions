@@ -51,7 +51,7 @@ resource "aws_iam_role" "assume" {
       Version = "2012-10-17"
       Statement = [
         {
-          Action   = ["aps:*", "xray:*"]
+          Action   = ["*"]
           Effect   = "Allow"
           Resource = "*"
         },

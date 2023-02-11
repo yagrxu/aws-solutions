@@ -27,7 +27,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    msg = 'message={} traceID={}'.format("world visited", convert_otel_trace_id_to_xray(trace.get_current_span().get_span_context().trace_id))
+    msg = 'message={} traceID={}'.format("\"world-visited\"", convert_otel_trace_id_to_xray(trace.get_current_span().get_span_context().trace_id))
     log.info(msg)
     return 'world'
 

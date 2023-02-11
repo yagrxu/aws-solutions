@@ -1,0 +1,42 @@
+{
+    "agent": {
+      "metrics_collection_interval": 60,
+      "logfile": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log"
+    },
+    "metrics": {
+      "namespace": "CloudWatchAgent",
+      "metrics_collected": {
+        "mem": {
+          "measurement": [
+            "mem_used",
+            "mem_cached",
+            "mem_total"
+          ],
+          "metrics_collection_interval": 1
+        },
+        "disk": {
+            "resources": [
+              "/",
+              "/tmp"
+            ],
+            "measurement": [
+              {"name": "free", "rename": "DISK_FREE", "unit": "Gigabytes"},
+              "total",
+              "used"
+            ],
+             "ignore_file_system_types": [
+              "sysfs", "devtmpfs"
+            ],
+            "metrics_collection_interval": 60
+          }
+      },
+      "append_dimensions": {
+        "ImageId": "${aws:ImageId}",
+        "InstanceId": "${aws:InstanceId}",
+        "InstanceType": "${aws:InstanceType}",
+        "AutoScalingGroupName": "${aws:AutoScalingGroupName}"
+      },
+      "aggregation_dimensions" : [["ImageId"], ["InstanceId", "InstanceType"],["InstanceId"], []],
+      "force_flush_interval" : 30
+    }
+  }

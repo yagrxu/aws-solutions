@@ -1,0 +1,91 @@
+[
+    {
+        "Id": "cpu_utilization",
+        "MetricStat": {
+            "Metric": {
+                "Namespace": "AWS/EC2",
+                "MetricName": "CPUUtilization",
+                "Dimensions": [
+                    {
+                        "Name": "InstanceId",
+                        "Value": "i-08c1605b2662e9850"
+                    }
+                ]
+            },
+            "Period": 300,
+            "Stat": "Maximum",
+            "Unit": "Percent"
+        },
+        "ReturnData": true
+    },
+    {
+        "Id": "mem_used",
+        "MetricStat": {
+            "Metric": {
+                "Namespace": "CloudWatchAgent",
+                "MetricName": "mem_used",
+                "Dimensions": [
+                    {
+                        "Name": "InstanceId",
+                        "Value": "i-08c1605b2662e9850"
+                    },
+                    {
+                        "Name": "InstanceType",
+                        "Value": "t3.large"
+                    }
+                ]
+            },
+            "Period": 300,
+            "Stat": "Maximum",
+            "Unit": "Bytes"
+        },
+        "ReturnData": true
+    },
+    {
+        "Id": "mem_total",
+        "MetricStat": {
+            "Metric": {
+                "Namespace": "CloudWatchAgent",
+                "MetricName": "mem_total",
+                "Dimensions": [
+                    {
+                        "Name": "InstanceId",
+                        "Value": "i-08c1605b2662e9850"
+                    },
+                    {
+                        "Name": "InstanceType",
+                        "Value": "t3.large"
+                    }
+                ]
+            },
+            "Period": 300,
+            "Stat": "Maximum",
+            "Unit": "Bytes"
+        },
+        "ReturnData": true
+    },
+    {
+        "Id": "mem_used_percentage",
+        "Expression": "mem_used / mem_total * 100",
+        "Label": "Memory Used Percentage"
+    },
+    {
+        "Id": "ebs_write_bytes",
+        "MetricStat": {
+            "Metric": {
+                "Namespace": "AWS/EC2",
+                "MetricName": "EBSWriteBytes",
+                "Dimensions": [
+                    {
+                        "Name": "InstanceId",
+                        "Value": "i-08c1605b2662e9850"
+                    }
+                ]
+            },
+            "Period": 300,
+            "Stat": "Maximum",
+            "Unit": "Bytes"
+        },
+        "ReturnData": true
+    }
+]
