@@ -28,10 +28,6 @@
                     {
                         "Name": "InstanceId",
                         "Value": "i-08c1605b2662e9850"
-                    },
-                    {
-                        "Name": "InstanceType",
-                        "Value": "t3.large"
                     }
                 ]
             },
@@ -51,10 +47,6 @@
                     {
                         "Name": "InstanceId",
                         "Value": "i-08c1605b2662e9850"
-                    },
-                    {
-                        "Name": "InstanceType",
-                        "Value": "t3.large"
                     }
                 ]
             },
