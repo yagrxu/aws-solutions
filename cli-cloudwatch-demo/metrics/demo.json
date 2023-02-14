@@ -1,0 +1,7 @@
+[
+    {
+        "Id": "cpu_utilization",
+        "Expression": "SEARCH(' {AWS/EC2,InstanceId} MetricName=\"CPUUtilization\" ', 'Average', 300)",
+        "ReturnData": true
+    }
+]

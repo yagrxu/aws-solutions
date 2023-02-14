@@ -1,0 +1,7 @@
+[
+    {
+        "Id": "mem_total",
+        "Expression": "SEARCH(' {CloudWatchAgent,InstanceId} MetricName=\"mem_total\" ', 'Average', 300)",
+        "ReturnData": true
+    }
+]

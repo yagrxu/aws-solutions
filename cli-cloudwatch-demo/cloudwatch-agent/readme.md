@@ -20,3 +20,6 @@ https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-
     ```
 
     If `["InstanceId"]` is not defined there, you can not query the metrics by only using InstanceId
+
+2. Private Network Support
+   Agent will push data to monitoring.<Region>.amazonaws.com, which uses public IP. If you configure the endpoint for both SSM and CloudWatch, the DNS records can be also updated in VPC with private IPs.

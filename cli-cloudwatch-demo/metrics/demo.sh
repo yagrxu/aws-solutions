@@ -14,4 +14,4 @@ START_TIME=`TZ=UTC date -j -v -30M +%Y-%m-%dT%H:%M:%SZ`
 END_TIME=`TZ=UTC date +%Y-%m-%dT%H:%M:%SZ`
 echo $START_TIME
 echo $END_TIME
-aws cloudwatch get-metric-data --metric-data-queries file://./metric-data-queries.json --start-time $START_TIME --end-time $END_TIME --no-cli-pager
+aws cloudwatch get-metric-data --metric-data-queries file://./demo.json --start-time $START_TIME --end-time $END_TIME --no-cli-pager
