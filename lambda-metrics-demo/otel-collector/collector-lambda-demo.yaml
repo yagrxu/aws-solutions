@@ -1,0 +1,42 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: metrics-lambda-collector
+  namespace: observability
+spec:
+  serviceAccount: adot-collector
+  mode: deployment
+  config: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+                                
+    processors:
+      batch/metrics:
+        timeout: 60s         
+
+    ## for adot addon 0.58.0 and above     
+    extensions:
+      sigv4auth:
+        region: ap-southeast-1
+        service: "aps"
+
+    exporters:
+
+      ## for adot addon 0.58.0 and above     
+      prometheusremotewrite:
+        endpoint: "https://aps-workspaces.ap-southeast-1.amazonaws.com/workspaces/ws-166ec5b5-3ae8-4eb0-84c8-6a4c425746c0/api/v1/remote_write"
+        auth:
+          authenticator: sigv4auth
+
+    service:
+      extensions: [sigv4auth]
+      pipelines:
+          metrics:
+            receivers: [otlp]
+            processors: [batch/metrics]
+            exporters: [prometheusremotewrite]
