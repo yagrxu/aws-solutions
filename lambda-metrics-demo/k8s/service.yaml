@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lambda-metrics-collector
+  namespace: observability
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internal
+spec:
+  ports:
+    - port: 4317
+      targetPort: 4317
+      protocol: TCP
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: metrics-lambda-collector-collector
