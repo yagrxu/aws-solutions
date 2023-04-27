@@ -1,0 +1,76 @@
+{
+    "Parameters":{
+        "UnitType":{
+            "Type":"String",
+            "Default":"Instances",
+            "AllowedValues":[
+                "Instances",
+                "vCPU",
+                "InstanceFleetUnits"
+            ],
+            "Description":"Managed Scaling Unit Type"
+        },
+        "JobFlowId":{
+            "Type":"String",
+            "Description":"Job Flow Id / EMR Cluster ID"
+        }
+    },
+    "Mappings":{
+        "Metric":{
+            "Instances":{
+                "Request":"TotalNodesRequested",
+                "Running":"TotalNodesRunning"
+            },
+            "vCPU":{
+                "Request":"TotalVCPURequested",
+                "Running":"TotalVCPURunning"
+            },
+            "InstanceFleetUnits":{
+                "Request":"TotalUnitsRequested",
+                "Running":"TotalUnitsRunning"
+            }
+        }
+    },
+    "Resources":{
+        "CustomDashboard":{
+        "Type" : "AWS::CloudWatch::Dashboard",
+        "Properties" : {
+            "DashboardBody" : {
+                    "Fn::Join":[
+                        "",
+                    [
+                        "{\"start\":\"-PT1H\",\"periodOverride\":\"auto\",\"widgets\":[{\"type\":\"metric\",\"properties\":{\"metrics\":[[\"AWS\/ElasticMapReduce\",\"ContainerPendingRatio\",\"JobFlowId\",\"",
+                        { "Ref":"JobFlowId" },
+                        "\",{\"yAxis\":\"left\"}],[\"AWS\/ElasticMapReduce\",\"ContainerPending\",\"JobFlowId\",\"",
+                        { "Ref":"JobFlowId" },
+                        "\"],[\"AWS\/ElasticMapReduce\",\"ContainerAllocated\",\"JobFlowId\",\"",
+                        { "Ref":"JobFlowId" },
+                        "\"],[\"AWS\/ElasticMapReduce\",\"",
+                        { "Fn::FindInMap":[ "Metric", { "Ref":"UnitType" }, "Request"] },
+                        "\",\"JobFlowId\",\"",
+                        { "Ref":"JobFlowId" },
+                        "\",{\"yAxis\":\"right\"}],[\"AWS\/ElasticMapReduce\",\"",
+                        { "Fn::FindInMap":[ "Metric", { "Ref":"UnitType" }, "Running"] },
+                        "\",\"JobFlowId\",\"",
+                        { "Ref":"JobFlowId" },
+                        "\",{\"yAxis\":\"right\"}],[\"AWS\/ElasticMapReduce\",\"YARNMemoryAvailablePercentage\",\"JobFlowId\",\"",
+                        { "Ref":"JobFlowId" },
+                        "\",{\"yAxis\":\"left\"}]],\"period\":60,\"stat\":\"Average\",\"region\":\"us-east-1\",\"title\":\"EMR Managed Scaling Metrics for ",
+                        { "Ref":"UnitType" },
+                        " \",\"liveData\":true,\"legend\":{\"position\":\"right\"}}}]}"
+                    ]
+                ]
+            },
+            "DashboardName" : {
+                "Fn::Join":[
+                        "-",
+                        [
+                            "EMR-Managed-Scaling",
+                            { "Ref":"UnitType" }
+                        ]
+                ]
+            }
+        }
+        }
+    }
+}

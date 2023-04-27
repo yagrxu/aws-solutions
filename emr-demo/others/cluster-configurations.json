@@ -1,0 +1,32 @@
+[
+  {
+    "Classification": "hive-site",
+    "Properties": {
+      "hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory"
+    }
+  },
+  {
+    "Classification": "presto-connector-hive",
+    "Properties": {
+      "hive.metastore.glue.datacatalog.enabled": "true"
+    }
+  },
+  {
+    "Classification": "spark-hive-site",
+    "Properties": {
+      "hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory"
+    }
+  },
+  {
+    "Classification": "hbase",
+    "Properties": {
+      "hbase.emr.storageMode": "s3"
+    }
+  },
+  {
+    "Classification": "hbase-site",
+    "Properties": {
+      "hbase.rootdir": "s3://yagr-glue-demos/raw-data"
+    }
+  }
+]
