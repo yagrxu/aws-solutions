@@ -52,9 +52,9 @@ resource "aws_s3_object" "sales" {
 resource "aws_s3_object" "spark-etl" {
   bucket = aws_s3_bucket.spark_etl.bucket
   key    = "files/spark-etl.py"
-  source = "../data/spark-etl.py"
+  source = "../others/spark-etl.py"
 
-  etag = filemd5("../data/spark-etl.py")
+  etag = filemd5("../others/spark-etl.py")
 }
 
 resource "aws_s3_bucket" "studio-s3" {

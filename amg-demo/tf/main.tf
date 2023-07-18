@@ -16,8 +16,8 @@ module "vpc" {
   # 对于使用karpenter做资源管理的集群来说，需要给资源所在的子网打tag来进行识别。
   private_subnet_tags = {
     "kubernetes.io/cluster/${var.cluster_name}" = "owned"
-    "karpenter.sh/discovery" = var.cluster_name
-    "kubernetes.io/role/internal-elb" = 1
+    "karpenter.sh/discovery"                    = var.cluster_name
+    "kubernetes.io/role/internal-elb"           = 1
   }
   public_subnet_tags = {
     "kubernetes.io/role/elb	" = 1
@@ -27,16 +27,16 @@ module "vpc" {
 
 
 module "eks" {
-  source          = "terraform-aws-modules/eks/aws"
-  version         = "18.26.3"
+  source  = "terraform-aws-modules/eks/aws"
+  version = "18.26.3"
 
-  cluster_version = "1.23"
-  cluster_name    = var.cluster_name
+  cluster_version                 = "1.23"
+  cluster_name                    = var.cluster_name
   cluster_endpoint_private_access = true
   cluster_endpoint_public_access  = true
-  vpc_id          = module.vpc.vpc_id
-  subnet_ids      = module.vpc.private_subnets
-  enable_irsa     = true
+  vpc_id                          = module.vpc.vpc_id
+  subnet_ids                      = module.vpc.private_subnets
+  enable_irsa                     = true
 
   cluster_addons = {
     # Note: https://docs.aws.amazon.com/eks/latest/userguide/fargate-getting-started.html#fargate-gs-coredns
@@ -52,9 +52,9 @@ module "eks" {
   # Only need one node to get Karpenter up and running
   eks_managed_node_groups = {
     default = {
-      desired_size = 3
+      desired_size                 = 3
       iam_role_additional_policies = ["arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"]
-      instance_types = ["t3.large"]
+      instance_types               = ["t3.large"]
       tags = {
         Owner = "default"
       }
@@ -68,12 +68,12 @@ module "eks" {
           cidr_blocks = ["0.0.0.0/0"]
         }
         egress_all = {
-          description      = "Node all egress"
-          protocol         = "-1"
-          from_port        = 0
-          to_port          = 0
-          type             = "egress"
-          cidr_blocks      = ["0.0.0.0/0"]
+          description = "Node all egress"
+          protocol    = "-1"
+          from_port   = 0
+          to_port     = 0
+          type        = "egress"
+          cidr_blocks = ["0.0.0.0/0"]
         }
       }
     }
@@ -89,12 +89,12 @@ module "eks" {
       cidr_blocks = ["0.0.0.0/0"]
     }
     egress_all = {
-      description      = "Node all egress"
-      protocol         = "-1"
-      from_port        = 0
-      to_port          = 0
-      type             = "egress"
-      cidr_blocks      = ["0.0.0.0/0"]
+      description = "Node all egress"
+      protocol    = "-1"
+      from_port   = 0
+      to_port     = 0
+      type        = "egress"
+      cidr_blocks = ["0.0.0.0/0"]
     }
   }
 
@@ -108,12 +108,12 @@ module "eks" {
       cidr_blocks = ["0.0.0.0/0"]
     }
     egress_all = {
-      description      = "Node all egress"
-      protocol         = "-1"
-      from_port        = 0
-      to_port          = 0
-      type             = "egress"
-      cidr_blocks      = ["0.0.0.0/0"]
+      description = "Node all egress"
+      protocol    = "-1"
+      from_port   = 0
+      to_port     = 0
+      type        = "egress"
+      cidr_blocks = ["0.0.0.0/0"]
     }
   }
   manage_aws_auth_configmap = true
@@ -138,9 +138,9 @@ module "observability" {
   cluster_name            = var.cluster_name
   cluster_oidc_issuer_url = module.eks.cluster_oidc_issuer_url
   region                  = var.region
-  subnet_ids              = module.vpc.private_subnets 
-  security_group_ids      = [ module.eks.node_security_group_id, module.eks.cluster_primary_security_group_id ] 
-  grafana_username         = var.grafana_username 
+  subnet_ids              = module.vpc.private_subnets
+  security_group_ids      = [module.eks.node_security_group_id, module.eks.cluster_primary_security_group_id]
+  grafana_username        = var.grafana_username
   depends_on = [
     module.eks
   ]
@@ -151,7 +151,7 @@ data "aws_iam_policy" "ebs_csi_policy" {
 }
 
 module "irsa-ebs-csi" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  source = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
 
   create_role                   = true
   role_name                     = "AmazonEKSTFEBSCSIRole-${var.cluster_name}"

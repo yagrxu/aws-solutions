@@ -43,15 +43,11 @@ This is a demo to show how to work with Grafana/Prometheus/Loki/X-Ray in AWS.
     └── versions.tf
 ```
 
-
-
 ## Deployment
 
 ### Infrastructure Deployment by Terraform
 
 We will deploy the infrastructure with terraform IaC.
-
-
 
 #### Configure Terraform
 
@@ -84,14 +80,12 @@ terraform {
 
 If the configuration works, you can run the commands below to verify
 
-```
+``` shell
 #!bin/bash
 
 # initialize modules, backends, tfstate
 terraform init
 ```
-
-
 
 #### Deploy Infrastructure
 
@@ -108,7 +102,7 @@ cat <<EOF
 EOF
 ```
 
-Please make sure you have the correct environment values configured. 
+Please make sure you have the correct environment values configured.
 
 Alternatively, you can also use serviceaccount with AWS IRSA for EKS to authorize loki service.
 
