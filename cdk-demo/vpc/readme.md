@@ -2,17 +2,19 @@
 
 Follow the instructions below to test your first cdk app with code whisperer
 
-## Init App
+## CDK using Typescript
+
+### Init App for Typescript
 
 ```shell
-mkdir src
+mkdir ts
 # the command below must be triggered under an empty directory
 cdk init app --language typescript
 
 npm run build
 ```
 
-## Add VPC by Using Code Whisperer
+### Add VPC by Using Code Whisperer
 
 Add new VPC with comments below
 
@@ -47,8 +49,6 @@ The code would look like the one below
     });
 ```
 
-
-
 We all know that VPC should always come with some subnets, add a comment to ask Code Whisperer
 
 ```typescript
@@ -78,15 +78,13 @@ Then keep following the suggestions from Code Whisperer to finish the code as th
     });
 ```
 
-
-
 So far, I have no idea if it works at all.
 
 Let's test it
 
 
 
-## Test It
+### Test It
 
 ```
 cdk synth
@@ -96,9 +94,20 @@ cdk deploy
 
 You should see the output and it will be deployed.
 
-## Destroy All
+### Destroy All
 
-```
+``` shell
 cdk destroy
 ```
 
+## CDK using Java
+
+### Init App for Java
+
+```shell
+mkdir java
+# the command below must be triggered under an empty directory
+cdk init app --language java
+
+npm run build
+```
