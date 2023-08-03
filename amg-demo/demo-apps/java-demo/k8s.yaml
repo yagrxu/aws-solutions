@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello
+  namespace: default
+spec:
+  ports:
+    - name: http-simple-hello
+      port: 8080
+    - name: prometheus
+      port: 9404
+  selector:
+    app: simple-hello
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-hello
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simple-hello
+  template:
+    metadata:
+      labels:
+        app: simple-hello
+    spec:
+      containers:
+        - name: simple-hello
+          image: 613477150601.dkr.ecr.ap-southeast-1.amazonaws.com/grafana-demo-hello:v0.5
+          imagePullPolicy: Always
+          env:
+            - name: JAVA_TOOL_OPTIONS
+              value: "-javaagent:/app/otel.jar -javaagent:/app/jmx.jar=9404:/app/config.yaml"
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: "service.name=simple-hello"
+            - name: OTEL_IMR_EXPORT_INTERVAL
+              value: "5000"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://adot-collector-collector.observability:4317"
+          command:
+            - java
+            - -Xmx400m
+            - -jar
+            - /app/demo.jar
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 9404
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 2048Mi
+            requests:
+              cpu: 250m
+              memory: 512Mi

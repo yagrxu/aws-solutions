@@ -1,5 +1,6 @@
 **.zip
 **/*.jar
+**/.idea/
 !**/*agent.jar
 **/.vscode/
 **/target/

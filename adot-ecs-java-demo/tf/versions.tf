@@ -5,7 +5,7 @@ terraform {
       version = "~> 4.37.0"
     }
     kubernetes = {
-      source = "hashicorp/kubernetes"
+      source  = "hashicorp/kubernetes"
       version = "2.16.0"
     }
     helm = {
@@ -13,7 +13,7 @@ terraform {
       version = "~> 2.7.1"
     }
     godaddy = {
-      source = "n3integration/godaddy"
+      source  = "n3integration/godaddy"
       version = "1.8.7"
     }
   }

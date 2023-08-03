@@ -1,4 +1,4 @@
-otel.jmx.service.url = service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+otel.jmx.service.url = service:jmx:rmi:///jndi/rmi://127.0.0.1:1099/jmxrmi
 otel.jmx.target.system = jvm
 otel.jmx.interval.milliseconds = 5000
 otel.metrics.exporter = otlp

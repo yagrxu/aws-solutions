@@ -34,7 +34,7 @@ function buildDocker(){
   (
     rootDir=${PWD}
     # cd $rootDir/$1/$1-service || exit
-    sed  "s|{{adot-server-endpoint}}|$collector|g" session.properties.template > session.properties
+    sed  "s|{{adot-server-endpoint}}|$collector|g" ./agents/session.properties.template > ./agents/session.properties
     docker build --build-arg PLATFORM=$platform -t $ecrUri/adot-ecs-hello:$version -f ./Dockerfile-ecs .
     docker push $ecrUri/adot-ecs-hello:$version
   )

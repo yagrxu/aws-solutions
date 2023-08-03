@@ -3,31 +3,31 @@ resource "aws_iam_role_policy" "adot_policy" {
   role = aws_iam_role.adot_role.name
 
   policy = jsonencode({
-	"Version": "2012-10-17",
-	"Statement": [
-		{
-			"Effect": "Allow",
-			"Action": [
-				"logs:PutLogEvents",
-				"ecr:GetAuthorizationToken",
-                "ecr:BatchCheckLayerAvailability",
-                "ecr:GetDownloadUrlForLayer",
-                "ecr:BatchGetImage",
-				"logs:CreateLogGroup",
-				"logs:CreateLogStream",
-				"logs:DescribeLogStreams",
-				"logs:DescribeLogGroups",
-				"xray:PutTraceSegments",
-				"xray:PutTelemetryRecords",
-				"xray:GetSamplingRules",
-				"xray:GetSamplingTargets",
-				"xray:GetSamplingStatisticSummaries",
-				"ssm:GetParameters"
-			],
-			"Resource": "*"
-		}
-	]
-    })
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "logs:PutLogEvents",
+          "ecr:GetAuthorizationToken",
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage",
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:DescribeLogStreams",
+          "logs:DescribeLogGroups",
+          "xray:PutTraceSegments",
+          "xray:PutTelemetryRecords",
+          "xray:GetSamplingRules",
+          "xray:GetSamplingTargets",
+          "xray:GetSamplingStatisticSummaries",
+          "ssm:GetParameters"
+        ],
+        "Resource" : "*"
+      }
+    ]
+  })
 }
 
 data "aws_iam_policy_document" "ecs_assume_role_policy" {
