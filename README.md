@@ -12,3 +12,5 @@
 8. [Amazon Managed Grafana Demo (with loki and Amazon Managed Prometheus)](https://github.com/yagrxu/aws-solutions/tree/main/amg-demo)
 9. [CloudWatch Agent and Query demo](https://github.com/yagrxu/aws-solutions/tree/main/cli-cloudwatch-demo)
 10. [Cloudfront Function and Lambda@Edge Redirect Demo](https://github.com/yagrxu/aws-solutions/tree/main/lambda@edge)
+11. [Packer Demo](https://github.com/yagrxu/aws-solutions/tree/main/packer-demo)
+12. [EMR Automation and Demo](https://github.com/yagrxu/aws-solutions/tree/main/emr-demo)
