@@ -14,7 +14,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "yagr-tf-state-log"
+    bucket = "yagr-tfstate-log-us"
     key    = "aws-solutions/xray-demo"
     region = "us-east-1"
   }

@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "yagr-tf-state-log"
+    bucket = "yagr-tfstate-log-us"
     key    = "event/20220714-hangzhou/devops"
     region = "us-east-1"
   }

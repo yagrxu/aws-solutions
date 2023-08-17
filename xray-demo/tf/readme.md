@@ -21,7 +21,7 @@ export AWS_REGION="us-west-2"
 # apply your own configuration for this setup in versions.tf
 
 backend "s3" {
-    bucket = "yagr-tf-state-log"
+    bucket = "yagr-tfstate-log-us"
     key    = "aws-solutions/xray-demo"
     region = "us-east-1"
   }

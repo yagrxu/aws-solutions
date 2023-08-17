@@ -7,7 +7,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "yagr-tf-state-log"
+    bucket = "yagr-tfstate-log-us"
     key    = "bigdata/emr/demo0424"
     region = "us-east-1"
   }

@@ -14,7 +14,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "yagr-tf-state-log"
+    bucket = "yagr-tfstate-log-us"
     key    = "workshop/observability/cloudwatch/cross-account-demo-a"
     region = "us-east-1"
     profile = "global"

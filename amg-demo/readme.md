@@ -71,7 +71,7 @@ terraform {
   }
  
   backend "s3" {
-    bucket = "yagr-tf-state-log"
+    bucket = "yagr-tfstate-log-us"
     key    = "tfc/observability/grafana-demo"
     region = "us-east-1"
   }
