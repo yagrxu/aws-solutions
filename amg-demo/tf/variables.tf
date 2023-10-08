@@ -14,3 +14,7 @@ variable "username" {
 variable "grafana_username" {
   default = "yagrxu@amazon.com"
 }
+
+variable "sso_region" {
+  default = "ap-southeast-1"
+}

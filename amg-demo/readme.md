@@ -49,33 +49,42 @@ This is a demo to show how to work with Grafana/Prometheus/Loki/X-Ray in AWS.
 
 We will deploy the infrastructure with terraform IaC.
 
-#### Configure Terraform
+#### Configure Terraform and Environment Values
 
-Adopt the provider and backend values below accoding to your own environment
+- Adopt the provider and backend values below accoding to your own environment
 
-```terraform
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.52.0"
+  ```terraform
+  terraform {
+    required_providers {
+      aws = {
+        source  = "hashicorp/aws"
+        version = "~> 4.52.0"
+      }
+      kubernetes = {
+        source = "hashicorp/kubernetes"
+        version = "2.16.0"
+      }
+      helm = {
+        source  = "hashicorp/helm"
+        version = "~> 2.7.1"
+      }
     }
-    kubernetes = {
-      source = "hashicorp/kubernetes"
-      version = "2.16.0"
-    }
-    helm = {
-      source  = "hashicorp/helm"
-      version = "~> 2.7.1"
+  
+    backend "s3" {
+      bucket = "yagr-tfstate-log-us"
+      key    = "tfc/observability/grafana-demo"
+      region = "us-east-1"
     }
   }
- 
-  backend "s3" {
-    bucket = "yagr-tfstate-log-us"
-    key    = "tfc/observability/grafana-demo"
-    region = "us-east-1"
-  }
-}
+  ```
+
+- Setup proper environment values
+
+```shell
+# infrastructure to be deployed in which region
+export TF_VAR_region=us-west-2
+# IAM SSO is already configured in which region - for Amaozn managed Grafana
+export TF_VAR_sso_region=ap-southeast-1
 ```
 
 If the configuration works, you can run the commands below to verify
@@ -128,15 +137,13 @@ We need to configure local kubectl tool to deploy resources in the following sec
 ```shell
 export KUBECONFIG=~/.kube/grafana-demo:~/.kube/config-demo:~/.kube/demo
 export KUBECTX_IGNORE_FZF=1
-aws eks update-kubeconfig --name grafana-demo  --kubeconfig ~/.kube/grafana-demo --region ap-southeast-1 --alias grafana-demo
+aws eks update-kubeconfig --name grafana-demo  --kubeconfig ~/.kube/grafana-demo --region $TF_VAR_region --alias grafana-demo
 kubectx grafana-demo
 ```
 
 Now if you run `kubectx` you can see the `grafana-demo` context is highlighted and is used by kubectl cli.
 
 ![image-20230206145933493](./screenshots/kubectx.png)
-
-
 
 ### Cluster Configuration
 
@@ -171,8 +178,6 @@ In the collector.yaml, we have configured several receivers, processors and expo
   The otlp receiver will collect the OpenTelemetry formating tracing data and transform it into X-Ray compatible format by using xray exporter.
 
   At the same time, `metrics/otlp` will collect tracing related metrics data and send it to CloudWatch by using awsemf exporter. The metrics include many used data come alone with traces, e.g. request response time and error rates
-
-
 
 #### Verify The Configuration
 
@@ -251,6 +256,17 @@ kubectl apply -f ./demo-apps/k8s-resources/
   - Create data source and explore
 
     ![image-20230207085111100](/Users/yagrxu/me/code/aws-solutions/amg-demo/screenshots/x-ray-explore.png)
+
+### Other Useful Commands
+
+version compatible check
+
+```shell
+aws eks describe-addon-versions --addon-name aws-ebs-csi-driver --kubernetes-version 1.27 \     ✔  10073  17:07:47
+    --query "addons[].addonVersions[].[addonVersion, compatibilities[].defaultVersion]" --output text
+    aws eks describe-addon-versions --addon-name adot --kubernetes-version 1.27 \     ✔  10073  17:07:47
+    --query "addons[].addonVersions[].[addonVersion, compatibilities[].defaultVersion]" --output text
+```
 
 ### End
 

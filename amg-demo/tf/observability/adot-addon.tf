@@ -10,16 +10,16 @@ resource "aws_eks_addon" "adot" {
     kubernetes_role_binding.eks_addon_manager
   ]
 
-  cluster_name = var.cluster_name
-  addon_name   = "adot"
-  addon_version = "v0.61.0-eksbuild.1"
+  cluster_name  = var.cluster_name
+  addon_name    = "adot"
+  addon_version = "v0.80.0-eksbuild.2"
 }
 
 module "iam_assumable_role_adot_collector" {
-  source                        = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version                       = "5.9.0"
-  create_role                   = true
-  role_name                     = local.role_name
+  source      = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version     = "5.9.0"
+  create_role = true
+  role_name   = local.role_name
   # force_detach_policies         = true
   provider_url                  = var.cluster_oidc_issuer_url
   oidc_fully_qualified_subjects = ["system:serviceaccount:observability:adot-collector"]
@@ -58,16 +58,28 @@ resource "kubernetes_service_account" "adot-collector" {
   ]
 
   metadata {
-    name = "adot-collector"
+    name      = "adot-collector"
     namespace = "observability"
     labels = {
       "app.kubernetes.io/instance" = "adot-collector"
-      "app.kubernetes.io/name" = "adot-collector"
+      "app.kubernetes.io/name"     = "adot-collector"
     }
     annotations = {
       "eks.amazonaws.com/role-arn" = module.iam_assumable_role_adot_collector.iam_role_arn
     }
-  }  
+  }
+}
+
+resource "kubernetes_secret" "adot-collector" {
+  metadata {
+    name      = "serviceaccount-token-secret"
+    namespace = "observability"
+    annotations = {
+      "kubernetes.io/service-account.name"      = "adot-collector"
+      "kubernetes.io/service-account.namespace" = "observability"
+    }
+  }
+  type = "kubernetes.io/service-account-token"
 }
 
 # resource "kubernetes_namespace" "opentelemetry_operator_system" {
@@ -343,7 +355,7 @@ resource "kubernetes_cluster_role" "otel-prometheus-role" {
 
   rule {
     api_groups = [""]
-    resources  = ["nodes", "pods","services","endpoints","nodes/proxy"]
+    resources  = ["nodes", "pods", "services", "endpoints", "nodes/proxy"]
     verbs      = ["get", "list", "watch"]
   }
 
@@ -355,7 +367,7 @@ resource "kubernetes_cluster_role" "otel-prometheus-role" {
 
   rule {
     non_resource_urls = ["/metrics"]
-    verbs      = ["get"]
+    verbs             = ["get"]
   }
 
 }

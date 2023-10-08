@@ -1,5 +1,5 @@
 locals {
-    loki_storage = <<EOT
+  loki_storage = <<EOT
 loki:
   auth_enabled: false
   storage:
@@ -24,27 +24,28 @@ data "external" "env" {
 }
 
 resource "aws_s3_bucket" "loki" {
-  bucket = "${var.cluster_name}-loki-yagr"
+  bucket        = "${var.cluster_name}-loki-yagr"
   force_destroy = true
 }
 
 resource "helm_release" "loki" {
-  name       = "loki"
+  name = "loki"
 
   repository = "https://grafana.github.io/helm-charts"
   chart      = "loki"
+  # version    = "5.10.0"
 
   values = [local.loki_storage]
 }
 
 resource "helm_release" "fluentbit" {
-  name       = "fluentbit"
+  name = "fluentbit"
 
   repository = "https://grafana.github.io/helm-charts"
   chart      = "fluent-bit"
 
   set {
-    name = "loki.serviceName"
+    name  = "loki.serviceName"
     value = "loki-write.default.svc.cluster.local"
   }
 }

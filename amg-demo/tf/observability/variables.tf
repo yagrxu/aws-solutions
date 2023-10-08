@@ -25,3 +25,7 @@ variable "subnet_ids" {
 variable "grafana_username" {
 
 }
+
+variable "user_ids" {
+
+}

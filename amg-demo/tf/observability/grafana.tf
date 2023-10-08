@@ -1,15 +1,3 @@
-data "aws_ssoadmin_instances" "example" {}
-
-data "aws_identitystore_user" "example" {
-  identity_store_id = tolist(data.aws_ssoadmin_instances.example.identity_store_ids)[0]
-
-  alternate_identifier {
-    unique_attribute {
-      attribute_path  = "UserName"
-      attribute_value = var.grafana_username
-    }
-  }
-}
 
 resource "aws_grafana_workspace" "example" {
   account_access_type      = "CURRENT_ACCOUNT"
@@ -24,7 +12,7 @@ resource "aws_grafana_workspace" "example" {
 
 resource "aws_grafana_role_association" "example" {
   role         = "ADMIN"
-  user_ids     = [data.aws_identitystore_user.example.user_id]
+  user_ids     = var.user_ids
   workspace_id = aws_grafana_workspace.example.id
 }
 

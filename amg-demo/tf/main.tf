@@ -5,7 +5,7 @@ module "vpc" {
   name = var.cluster_name
   cidr = "10.0.0.0/16"
 
-  azs             = ["ap-southeast-1a", "ap-southeast-1b", "ap-southeast-1c"]
+  azs             = ["${var.region}a", "${var.region}b", "${var.region}c"]
   private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
   public_subnets  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
 
@@ -30,7 +30,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "18.26.3"
 
-  cluster_version                 = "1.23"
+  cluster_version                 = "1.27"
   cluster_name                    = var.cluster_name
   cluster_endpoint_private_access = true
   cluster_endpoint_public_access  = true
@@ -52,7 +52,7 @@ module "eks" {
   # Only need one node to get Karpenter up and running
   eks_managed_node_groups = {
     default = {
-      desired_size                 = 3
+      desired_size                 = 5
       iam_role_additional_policies = ["arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"]
       instance_types               = ["t3.large"]
       tags = {
@@ -141,6 +141,7 @@ module "observability" {
   subnet_ids              = module.vpc.private_subnets
   security_group_ids      = [module.eks.node_security_group_id, module.eks.cluster_primary_security_group_id]
   grafana_username        = var.grafana_username
+  user_ids                = [data.aws_identitystore_user.example.user_id]
   depends_on = [
     module.eks
   ]
@@ -163,7 +164,7 @@ module "irsa-ebs-csi" {
 resource "aws_eks_addon" "ebs-csi" {
   cluster_name             = var.cluster_name
   addon_name               = "aws-ebs-csi-driver"
-  addon_version            = "v1.5.2-eksbuild.1"
+  addon_version            = "v1.23.0-eksbuild.1"
   service_account_role_arn = module.irsa-ebs-csi.iam_role_arn
   tags = {
     "eks_addon" = "ebs-csi"

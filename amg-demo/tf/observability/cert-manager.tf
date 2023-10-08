@@ -14,15 +14,15 @@ resource "helm_release" "cert-manager" {
   create_namespace = false
   chart            = "cert-manager"
   repository       = "https://charts.jetstack.io"
-  version          = "v1.8.2"
+  version          = "v1.13.1"
 
   set {
     name  = "startupapicheck.enabled"
     value = "false"
   }
-  
+
   set {
-    name = "installCRDs"
+    name  = "installCRDs"
     value = "true"
   }
 
