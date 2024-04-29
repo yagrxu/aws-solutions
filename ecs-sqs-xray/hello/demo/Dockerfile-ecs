@@ -1,0 +1,9 @@
+ARG PLATFORM
+FROM --platform=linux/${PLATFORM} amazoncorretto:17
+
+COPY ./target/hello.jar /app/demo.jar
+COPY ./agents/aws-opentelemetry-agent.jar /app/otel.jar
+COPY ./start-ecs-docker.sh /app/start-ecs-docker.sh
+# WORKDIR /app
+EXPOSE 8080
+ENTRYPOINT ["bash", "/app/start-ecs-docker.sh"]
